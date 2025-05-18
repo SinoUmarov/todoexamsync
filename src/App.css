@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  font-family: Roboto, sans-serif;
+}
+
+.container {
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  text-align: left;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status.active {
+  color: green;
+  font-weight: bold;
+}
+
+.status.inactive {
+  color: red;
+  font-weight: bold;
+}
+
+.user-name {
+  font-weight: bold;
+}
