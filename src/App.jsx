@@ -221,7 +221,7 @@ export default function App() {
                       color="secondary"
                       onClick={() => handleCompleteToggle(user.id)}
                     >
-                      Toggle
+                      COMPLETED
                     </Button>
                     <Button
                       variant="contained"
