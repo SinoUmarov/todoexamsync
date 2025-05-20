@@ -61,6 +61,7 @@ export default function App() {
   const [cityFilter, setCityFilter] = useState("All");
   const [open, setOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [infoUser, setInfoUser] = useState(null);
 
   const cities = ["All", "Dushanbe", "Khujand", "Bokhtar", "Hisar", "Kulob"];
 
@@ -97,7 +98,9 @@ export default function App() {
 
     const exists = users.some((el) => el.id === currentUser.id);
     if (exists) {
-      setUsers(users.map((el) => (el.id === currentUser.id ? currentUser : el)));
+      setUsers(
+        users.map((el) => (el.id === currentUser.id ? currentUser : el))
+      );
     } else {
       setUsers([...users, currentUser]);
     }
@@ -108,7 +111,7 @@ export default function App() {
   const handleCompleteToggle = (id) => {
     setUsers(
       users.map((user) =>
-      user.id === id ? { ...user, completed: !user.completed } : user
+        user.id === id ? { ...user, completed: !user.completed } : user
       )
     );
   };
@@ -229,6 +232,12 @@ export default function App() {
                     >
                       Edit
                     </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setInfoUser(user)}
+                    >
+                      Info
+                    </Button>
                   </Stack>
                 </TableCell>
               </TableRow>
@@ -237,7 +246,12 @@ export default function App() {
         </Table>
       </TableContainer>
 
-      <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="sm">
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        fullWidth
+        maxWidth="sm"
+      >
         <DialogTitle>
           {currentUser?.id ? "Edit User" : "Add User"}
           <IconButton
@@ -305,6 +319,56 @@ export default function App() {
           </Button>
         </DialogActions>
       </Dialog>
+      <Dialog
+  open={Boolean(infoUser)}
+  onClose={() => setInfoUser(null)}
+  fullWidth
+  maxWidth="sm"
+>
+  <DialogTitle>
+    
+    <IconButton
+      aria-label="close"
+      onClick={() => setInfoUser(null)}
+      sx={{ position: "absolute", right: 8, top: 8 }}
+    >
+      <CloseIcon />
+    </IconButton>
+  </DialogTitle>
+  <DialogContent dividers>
+    {infoUser && (
+      <Stack spacing={2}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <img
+            src={infoUser.photo}
+            alt="avatar"
+            width={60}
+            height={60}
+            style={{ borderRadius: "50%" }}
+          />
+          <Box>
+            <Typography variant="h6">{infoUser.name}</Typography>
+            <Typography color="text.secondary">{infoUser.email}</Typography>
+          </Box>
+        </Stack>
+        <Typography>
+          <strong>Phone:</strong> {infoUser.phone}
+        </Typography>
+        <Typography>
+          <strong>City:</strong> {infoUser.country}
+        </Typography>
+        <Typography>
+          <strong>Status:</strong>{" "}
+          {infoUser.completed ? "Active" : "Inactive"}
+        </Typography>
+      </Stack>
+    )}
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setInfoUser(null)}>Close</Button>
+  </DialogActions>
+</Dialog>
+
     </Container>
   );
 }
